@@ -23,6 +23,7 @@ public interface UserMapper {
             @Result(column="role", property="role", jdbcType=JdbcType.VARCHAR)
     })
     User login(@Param("username") String username,@Param("password") String password);
+
     @SelectProvider(type=UserSqlProvider.class, method="countByExample")
     int countByExample(UserExample example);
 

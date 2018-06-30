@@ -2,19 +2,10 @@ package com.lyf.mapper;
 
 import com.lyf.model.Resume;
 import com.lyf.model.ResumeExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
 
 public interface ResumeMapper {
     @SelectProvider(type=ResumeSqlProvider.class, method="countByExample")
@@ -111,7 +102,37 @@ public interface ResumeMapper {
         @Result(column="role", property="role", jdbcType=JdbcType.VARCHAR)
     })
     Resume selectByPrimaryKey(Integer rid);
-
+    @Select({
+            "select",
+            "rid, position, name, age, sex, email, address, phone, huji, xueli, school, major, ",
+            "majorpm, certificate, level, workexp, ppath, rpath, uid, username, role",
+            "from resume",
+            "where uid = #{uid,jdbcType=INTEGER}"
+    })
+    @Results({
+            @Result(column="rid", property="rid", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="position", property="position", jdbcType=JdbcType.VARCHAR),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
+            @Result(column="sex", property="sex", jdbcType=JdbcType.VARCHAR),
+            @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
+            @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
+            @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="huji", property="huji", jdbcType=JdbcType.VARCHAR),
+            @Result(column="xueli", property="xueli", jdbcType=JdbcType.VARCHAR),
+            @Result(column="school", property="school", jdbcType=JdbcType.VARCHAR),
+            @Result(column="major", property="major", jdbcType=JdbcType.VARCHAR),
+            @Result(column="majorpm", property="majorpm", jdbcType=JdbcType.INTEGER),
+            @Result(column="certificate", property="certificate", jdbcType=JdbcType.VARCHAR),
+            @Result(column="level", property="level", jdbcType=JdbcType.VARCHAR),
+            @Result(column="workexp", property="workexp", jdbcType=JdbcType.VARCHAR),
+            @Result(column="ppath", property="ppath", jdbcType=JdbcType.VARCHAR),
+            @Result(column="rpath", property="rpath", jdbcType=JdbcType.VARCHAR),
+            @Result(column="uid", property="uid", jdbcType=JdbcType.INTEGER),
+            @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+            @Result(column="role", property="role", jdbcType=JdbcType.VARCHAR)
+    })
+    Resume selectByUid(Integer uid);
     @UpdateProvider(type=ResumeSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Resume record, @Param("example") ResumeExample example);
 

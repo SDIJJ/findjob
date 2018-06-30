@@ -4,11 +4,13 @@
 	<head>
 		<title></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="js/login.js"></script>
 		<link href="css/login.css" rel="stylesheet" type="text/css" />
 	</head>
 
 	<body>
-		<h1>用户登录注册</a></h1>
+		<h1>企业登录注册</a></h1>
 		<div class="login" style="margin-top:50px;">
 			<div class="header">
 				<div class="switch" id="switch">
@@ -24,26 +26,30 @@
 					<div class="login-box">
 
 						<div class="login_form">
-							<form action="" name="loginform"  id="loginform" class="loginForm">
+							<form action="" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0" />
+								<input type="hidden" name="to" value="log" />
 								<div class="uinArea" id="uinArea">
 									<label class="input-tips" for="u">帐号：</label>
 									<div class="inputOuter" id="uArea">
+
 										<input type="text" id="u" name="username" class="inputstyle" />
 									</div>
 								</div>
 								<div class="pwdArea" id="pwdArea">
 									<label class="input-tips" for="p">密码：</label>
 									<div class="inputOuter" id="pArea">
-										<input type="password" id="p" name="password" class="inputstyle" />
+
+										<input type="password" id="p" name="p" class="inputstyle" />
 									</div>
 								</div>
-								<div style="padding-left:50px;margin-top:20px;"><input type="button" value="登 录" style="width:150px;" class="button_blue" id="loginbtn"/></div>
+
+								<div style="padding-left:50px;margin-top:20px;"><input type="submit" value="登 录" style="width:150px;" class="button_blue" /></div>
 							</form>
 						</div>
 
 					</div>
 					<div class="trtopub1">
-						<a href="publiclogin.html">前往企业登录</a>
+						<a href="login.html">前往个人登录</a>
 					</div>
 				</div>
 				<!--登录end-->
@@ -53,35 +59,43 @@
 			<div class="qlogin" id="qlogin" style="display: none; ">
 
 				<div class="web_login">
-					<form name="form2" id="registerform" accept-charset="utf-8" action="" method="post">
+					<form name="form2" id="regUser" accept-charset="utf-8" action="" method="post">
 						<input type="hidden" name="to" value="reg" />
 						<input type="hidden" name="did" value="0" />
 						<ul class="reg_form" id="reg-ul">
+							
+							<li>
+								<label for="qq" class="input-tips2">企业名称：</label>
+								<div class="inputOuter2">
+
+									<input type="text" id="qy" name="qy" maxlength="30" class="inputstyle2" />
+								</div>
+
+							</li>
+
 							<li>
 
 								<label for="user" class="input-tips2">用户名：</label>
 								<div class="inputOuter2">
-									<input type="text"  name="username" maxlength="16" class="inputstyle2" />
+									<input type="text" id="user" name="user" maxlength="16" class="inputstyle2" />
 								</div>
 
 							</li>
 
 							<li>
-								<label  class="input-tips2">密码：</label>
+								<label for="passwd" class="input-tips2">密码：</label>
 								<div class="inputOuter2">
-									<input type="password"  name="password" maxlength="16" class="inputstyle2" />
+									<input type="password" id="passwd" name="passwd" maxlength="16" class="inputstyle2" />
 								</div>
 
 							</li>
 							<li>
-								<label  class="input-tips2">确认密码：</label>
+								<label for="passwd2" class="input-tips2">确认密码：</label>
 								<div class="inputOuter2">
-									<input type="password"  name="repassword" maxlength="16" class="inputstyle2" />
+									<input type="password" id="passwd2" name="" maxlength="16" class="inputstyle2" />
 								</div>
 
 							</li>
-
-							
 							<li>
 								<div id="userCue" class="cue">快速注册请注意格式</div>
 								<div class="inputArea">
@@ -94,40 +108,11 @@
 					</form>
 				</div>
 				<div class="trtopub2">
-					<a href="publiclogin.html">前往企业注册</a>
+					<a href="login.html">前往个人注册</a>
 				</div>
 			</div>
 			<!--注册end-->
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="js/login.js"></script>
-	<script src="js/tojson.js"></script>
-	<script  src="js/jquery.cookie-1.4.1.min.js"></script>
-	<script>
-		$(function () {
-			var LOGIN_URL="http://localhost:8082/user/login";
-			$("#loginbtn").click(function () {
-				var json=JSON.stringify($("#loginform").serializeObject());
-				console.log("json="+json);
-				$.ajax({
-					url:LOGIN_URL,
-					data:json,
-					type:"post",
-					contentType:"application/json;charset=utf-8",
-					dataType:"json",
-					statusCode:{
-						200:function (data) {
-							alert(data.username+"登陆成功");
-							console.log(data.username);
-							window.location="index.html?username="+data.username;
-						},
-						409:function (data) {
-							alert("登陆错误！");
-						}
-					}
-				})
-			})
-		})
-	</script>
+
 </html>
